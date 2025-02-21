@@ -1,5 +1,19 @@
 # To Do List
 
+Add in the read me why it could be useful
+
+The repo is buggy check it
+
+Explain thet you first hit cmd m and then the c not all at the same time
+
+Publish in linked in
+
+Make it so the copied popup toast goes away after some time
+
+And also publish that you made a python extension
+
+## Done
+
 Lets call the extension massive copy
 
 Only .py .js .ts .jsx
@@ -15,10 +29,6 @@ Make so in settings some of this can change
 Add an image
 
 Update the readme
-
-Publish in linked in
-
-## Done
 
 Lets publish it
 

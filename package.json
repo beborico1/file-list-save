@@ -1,16 +1,17 @@
 {
-  "name": "file-list-saver",
+  "name": "massive-copy",
   "publisher": "LuisCarlosRicoAlmada",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR-USERNAME/file-list-saver"
+    "url": "https://github.com/YOUR-USERNAME/massive-copy"
   },
-  "displayName": "File List Saver",
-  "description": "Save content of all open files to content.txt",
-  "version": "0.0.2",
+  "displayName": "Massive Copy",
+  "description": "Copy content of multiple files or entire repository to clipboard",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.80.0"
   },
+  "icon": "images/icon.png",
   "categories": [
     "Other"
   ],
@@ -21,15 +22,48 @@
   "contributes": {
     "commands": [
       {
-        "command": "file-list-saver.saveFileList",
-        "title": "Save Open Files Content"
+        "command": "massive-copy.copySelected",
+        "title": "Massive Copy: Copy Selected File Types"
+      },
+      {
+        "command": "massive-copy.copyRepo",
+        "title": "Massive Copy: Copy Entire Repository"
       }
     ],
+    "configuration": {
+      "title": "Massive Copy",
+      "properties": {
+        "massive-copy.allowedExtensions": {
+          "type": "array",
+          "default": [
+            ".py",
+            ".js",
+            ".ts",
+            ".jsx"
+          ],
+          "description": "File extensions to include when copying selected files"
+        },
+        "massive-copy.excludeFolders": {
+          "type": "array",
+          "default": [
+            "node_modules",
+            "venv",
+            ".git"
+          ],
+          "description": "Folders to exclude when copying repository"
+        }
+      }
+    },
     "keybindings": [
       {
-        "command": "file-list-saver.saveFileList",
-        "key": "ctrl+alt+s",
-        "mac": "cmd+alt+s"
+        "command": "massive-copy.copySelected",
+        "key": "ctrl+m c",
+        "mac": "cmd+m c"
+      },
+      {
+        "command": "massive-copy.copyRepo",
+        "key": "ctrl+m r",
+        "mac": "cmd+m r"
       }
     ]
   },
