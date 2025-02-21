@@ -1,7 +1,12 @@
 {
   "name": "file-list-saver",
+  "publisher": "LuisCarlosRicoAlmada",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR-USERNAME/file-list-saver"
+  },
   "displayName": "File List Saver",
-  "description": "Save content of all open files to content.txt and copy to clipboard",
+  "description": "Save content of all open files to content.txt",
   "version": "0.0.2",
   "engines": {
     "vscode": "^1.80.0"
