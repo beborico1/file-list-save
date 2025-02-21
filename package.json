@@ -1,0 +1,49 @@
+{
+  "name": "file-list-saver",
+  "displayName": "File List Saver",
+  "description": "Save content of all open files to content.txt and copy to clipboard",
+  "version": "0.0.2",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "file-list-saver.saveFileList",
+        "title": "Save Open Files Content"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "file-list-saver.saveFileList",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^20.8.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "eslint": "^8.49.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "ts-loader": "^9.4.4"
+  }
+}
