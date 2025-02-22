@@ -13,26 +13,58 @@ A VS Code extension that makes it easy to copy multiple files or entire reposito
 - Maintains file structure with clear separation between files
 - Shows relative paths for each file
 
+## Why Use Massive Copy?
+
+### Streamlined LLM Integration
+
+Massive Copy is specifically designed to enhance your workflow with Large Language Models (LLMs) like ChatGPT, Claude, or GitHub Copilot. It helps you:
+
+- Quickly provide relevant context to LLMs by copying multiple files at once
+- Share only the files you're actively working on using the open tabs feature
+- Maintain code structure and file relationships when sharing with LLMs
+- Efficiently get project-wide suggestions by sharing entire repositories
+- Exclude irrelevant files and folders (like node_modules) to focus on what matters
+
+Whether you need help debugging, want architecture suggestions, or are looking for code improvements, Massive Copy makes it easy to give LLMs the context they need to assist you effectively.
+
 ## Usage
 
 ### Copy Selected File Types
 
 1. Open the files you want to copy
-2. Press `Cmd+M C` (Mac) or `Ctrl+M C` (Windows/Linux)
+2. Press `Cmd+M` followed by `C` (Mac) or `Ctrl+M` followed by `C` (Windows/Linux)
+   - Note: Press these keys in sequence, not simultaneously
 3. Contents of all open files with allowed extensions will be copied to your clipboard
 
 ### Copy Entire Repository
 
 1. Open your repository in VS Code
-2. Press `Cmd+M R` (Mac) or `Ctrl+M R` (Windows/Linux)
+2. Press `Cmd+M` followed by `R` (Mac) or `Ctrl+M` followed by `R` (Windows/Linux)
+   - Note: Press these keys in sequence, not simultaneously
 3. All repository files (excluding specified folders) will be copied to your clipboard
+
+### Common Workflows
+
+1. **Getting Code Reviews**
+   - Open the relevant files in tabs
+   - Use `Cmd+M, C` to copy them
+   - Paste into your preferred LLM for review
+
+2. **Architecture Analysis**
+   - Use `Cmd+M, R` to copy your entire codebase
+   - Ask the LLM to analyze your project structure
+
+3. **Debugging Sessions**
+   - Open the files related to the bug
+   - Copy them with `Cmd+M, C`
+   - Get debugging suggestions from your LLM
 
 ## Extension Settings
 
 This extension contributes the following settings:
 
 - `massive-copy.allowedExtensions`: Array of file extensions to include when copying selected files
-  - Default: [".py", ".js", ".ts", ".jsx"]
+  - Default: [".py", ".js", ".ts", ".jsx", ".tsx", ".html", ".css", ".json", ".prisma"]
 - `massive-copy.excludeFolders`: Array of folders to exclude when copying repository
   - Default: ["node_modules", "venv", ".git"]
 
@@ -57,6 +89,6 @@ Initial release:
 
 ## About
 
-This extension is designed to make it easy to copy multiple files or entire repositories to your clipboard, perfect for sharing code snippets or documenting your work.
+This extension is designed to make it easy to copy multiple files or entire repositories to your clipboard, perfect for sharing code snippets, documenting your work, or getting assistance from AI tools.
 
 Follow me on [LinkedIn](https://www.linkedin.com/in/beborico/) for updates and more developer tools!

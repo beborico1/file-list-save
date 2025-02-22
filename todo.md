@@ -1,18 +1,22 @@
 # To Do List
 
-Add in the read me why it could be useful
-
-The repo is buggy check it
-
-Explain thet you first hit cmd m and then the c not all at the same time
-
-Publish in linked in
-
-Make it so the copied popup toast goes away after some time
+Publish in Linked In
 
 And also publish that you made a python extension
 
 ## Done
+
+Oh the copy repo function should also ignore the folders and the only include the '.py', '.js', '.ts', '.jsx', '.tsx', '.html', '.css', '.json', '.primsa'
+
+Make it so the copied popup toast goes away after some time
+
+Add in the read me why it could be useful
+
+Also Explain thet you first hit cmd m and then the c not all at the same time
+
+Update everything that we now have '.py', '.js', '.ts', '.jsx', '.tsx', '.html', '.css', '.json', '.prisma'
+
+Remove the total files open
 
 Lets call the extension massive copy
 

@@ -7,12 +7,12 @@ export function activate(context: vscode.ExtensionContext) {
     let copySelected = vscode.commands.registerCommand('massive-copy.copySelected', async () => {
         try {
             const config = vscode.workspace.getConfiguration('massive-copy');
-            const allowedExtensions = config.get('allowedExtensions', ['.py', '.js', '.ts', '.jsx', '.tsx', '.html', '.css', '.json']);
+            const allowedExtensions = config.get('allowedExtensions', ['.py', '.js', '.ts', '.jsx', '.tsx', '.html', '.css', '.json', '.prisma']);
 
             await copyFiles(allowedExtensions);
         } catch (error) {
             console.error('Error in copySelected:', error);
-            vscode.window.showErrorMessage(`Error copying files: ${error}`);
+            showTemporaryError(`Error copying files: ${error}`);
         }
     });
 
@@ -21,21 +21,42 @@ export function activate(context: vscode.ExtensionContext) {
         try {
             const config = vscode.workspace.getConfiguration('massive-copy');
             const excludeFolders = config.get('excludeFolders', ['node_modules', 'venv', '.git']);
+            const allowedExtensions = config.get('allowedExtensions', ['.py', '.js', '.ts', '.jsx', '.tsx', '.html', '.css', '.json', '.prisma']);
 
-            await copyRepository(excludeFolders);
+            await copyRepository(excludeFolders, allowedExtensions);
         } catch (error) {
             console.error('Error in copyRepo:', error);
-            vscode.window.showErrorMessage(`Error copying repository: ${error}`);
+            showTemporaryError(`Error copying repository: ${error}`);
         }
     });
 
     context.subscriptions.push(copySelected, copyRepo);
 }
 
+// Helper function to show temporary notifications
+function showTemporaryMessage(message: string, isError: boolean = false, duration: number = 3000) {
+    const notification = isError
+        ? vscode.window.showErrorMessage(message)
+        : vscode.window.showInformationMessage(message);
+
+    setTimeout(() => {
+        notification.then(item => {
+            if (item) {
+                // @ts-ignore - Close method exists but isn't in typings
+                item.close?.();
+            }
+        });
+    }, duration);
+}
+
+function showTemporaryError(message: string) {
+    showTemporaryMessage(message, true);
+}
+
 async function copyFiles(allowedExtensions: string[]) {
     const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
     if (!workspaceFolder) {
-        vscode.window.showErrorMessage('No workspace folder is open.');
+        showTemporaryError('No workspace folder is open.');
         return;
     }
 
@@ -48,11 +69,11 @@ async function copyFiles(allowedExtensions: string[]) {
     );
 
     if (allTabs.length === 0) {
-        vscode.window.showInformationMessage('No matching files are currently open.');
+        showTemporaryMessage('No matching files are currently open.');
         return;
     }
 
-    let fullContent = `Total open files: ${allTabs.length}\n\n`;
+    let fullContent = '';
     for (const tab of allTabs) {
         if (tab.input instanceof vscode.TabInputText) {
             const document = await vscode.workspace.openTextDocument(tab.input.uri);
@@ -64,18 +85,23 @@ async function copyFiles(allowedExtensions: string[]) {
     }
 
     await vscode.env.clipboard.writeText(fullContent);
-    vscode.window.showInformationMessage(`Copied ${allTabs.length} files to clipboard`);
+    showTemporaryMessage(`Copied ${allTabs.length} files to clipboard`);
 }
 
-async function copyRepository(excludeFolders: string[]) {
+async function copyRepository(excludeFolders: string[], allowedExtensions: string[]) {
     const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
     if (!workspaceFolder) {
-        vscode.window.showErrorMessage('No workspace folder is open.');
+        showTemporaryError('No workspace folder is open.');
         return;
     }
 
     let fullContent = '';
-    const files = await getAllFiles(workspaceFolder.uri.fsPath, excludeFolders);
+    const files = await getAllFiles(workspaceFolder.uri.fsPath, excludeFolders, allowedExtensions);
+
+    if (files.length === 0) {
+        showTemporaryMessage('No matching files found in repository.');
+        return;
+    }
 
     for (const file of files) {
         const relativePath = path.relative(workspaceFolder.uri.fsPath, file);
@@ -84,10 +110,10 @@ async function copyRepository(excludeFolders: string[]) {
     }
 
     await vscode.env.clipboard.writeText(fullContent);
-    vscode.window.showInformationMessage(`Copied repository contents to clipboard`);
+    showTemporaryMessage(`Copied ${files.length} repository files to clipboard`);
 }
 
-async function getAllFiles(dir: string, excludeFolders: string[]): Promise<string[]> {
+async function getAllFiles(dir: string, excludeFolders: string[], allowedExtensions: string[]): Promise<string[]> {
     const entries = fs.readdirSync(dir, { withFileTypes: true });
     const files: string[] = [];
 
@@ -96,10 +122,13 @@ async function getAllFiles(dir: string, excludeFolders: string[]): Promise<strin
 
         if (entry.isDirectory()) {
             if (!excludeFolders.includes(entry.name)) {
-                files.push(...await getAllFiles(fullPath, excludeFolders));
+                files.push(...await getAllFiles(fullPath, excludeFolders, allowedExtensions));
             }
         } else {
-            files.push(fullPath);
+            // Only include files with allowed extensions
+            if (allowedExtensions.includes(path.extname(fullPath))) {
+                files.push(fullPath);
+            }
         }
     }
 
