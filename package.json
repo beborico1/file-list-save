@@ -3,11 +3,11 @@
   "publisher": "LuisCarlosRicoAlmada",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR-USERNAME/massive-copy"
+    "url": "https://github.com/beborico1/file-list-save"
   },
   "displayName": "Massive Copy",
   "description": "Copy content of multiple files or entire repository to clipboard",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "engines": {
     "vscode": "^1.80.0"
   },

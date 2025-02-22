@@ -78,7 +78,26 @@ None
 
 ## Release Notes
 
-### 0.1.0
+### 0.1.3 (2025-02-22)
+
+- Updated Release Notes in readme.md
+
+### 0.1.2 (2025-02-22)
+
+- Fixed GitHub URL in package.json
+
+### 0.1.1 (2025-02-22)
+
+Key improvements:
+
+- New keyboard shortcut system: sequential `Cmd+M, C` and `Cmd+M, R`
+- Auto-dismissing notifications
+- Enhanced LLM integration documentation
+- Improved repository copy with better file filtering
+- New extension icon
+- Fixed various notification and error handling issues
+
+### 0.1.0 (2025-02-22)
 
 Initial release:
 

@@ -2,6 +2,18 @@
 
 All notable changes to the "Massive Copy" extension will be documented in this file.
 
+## [0.1.3] - 2025-02-22
+
+### Updated
+
+- Updated Release Notes in readme.md
+
+## [0.1.2] - 2025-02-22
+
+### Minor Fix
+
+- GitHub URL in package.json
+
 ## [0.1.1] - 2025-02-22
 
 ### Added
